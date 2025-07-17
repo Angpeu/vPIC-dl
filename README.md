@@ -1,12 +1,18 @@
 
+
 # Инструкция по запуску и использованию vPIC-dl на Ubuntu
 
-Вот пошаговый план действий для запуска и использования репозитория samsullivandelgobbo/vPIC-dl на сервере с Ubuntu, если Docker и Python уже установлены:
+> Оригинальный репозиторий: [samsullivandelgobbo/vPIC-dl](https://github.com/samsullivandelgobbo/vPIC-dl)
+
+Этот форк создан с целью исправления ошибок и доработки инструкции для корректного запуска на Ubuntu.
+
+
+Пошаговый план действий для запуска и использования репозитория Angpeu/vPIC-dl на сервере с Ubuntu, если Docker и Python уже установлены:
 
 ## 1. Клонируй репозиторий
 
 ```bash
-git clone https://github.com/samsullivandelgobbo/vPIC-dl.git
+git clone https://github.com/Angpeu/vPIC-dl.git
 cd vPIC-dl
 ```
 
