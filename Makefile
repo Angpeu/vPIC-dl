@@ -1,6 +1,8 @@
 # Makefile
 .PHONY: all clean setup install start-containers download restore migrate-pg migrate-sqlite verify backup export-pg test
 
+SHELL := /bin/bash # Fix for running scripts in bash on Ubuntu
+
 # Variables
 BACKUP_NAME := vpic_postgres_$(shell date +%Y%m%d_%H%M%S)
 TEMP_DIR := temp_data

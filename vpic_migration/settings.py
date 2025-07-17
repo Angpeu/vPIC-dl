@@ -10,7 +10,8 @@ MIGRATIONS_DIR = PROJECT_ROOT / "migrations"
 # Database configurations
 SQL_SERVER = {
     "driver": "ODBC Driver 18 for SQL Server",
-    "server": "localhost",
+    # "server": "localhost",
+    "server": "127.0.0.1,1433", # Fix migration-pg issue on Ubuntu
     "database": "vpic",
     "user": "SA",
     "password": "DevPassword123#",
