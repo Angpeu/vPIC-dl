@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo "Starting backup restoration process..."
 
-# Найти последний .bak-файл
+# Find the latest .bak file
 BACKUP_FILE=$(docker exec sqltemp bash -c "ls -1 /var/opt/mssql/backup/VPICList_lite_*.bak 2>/dev/null | sort | tail -n 1")
 
 if [ -z "$BACKUP_FILE" ]; then
@@ -14,19 +14,19 @@ fi
 SQL_USER="SA"
 SQL_PASSWORD="DevPassword123#"
 
-# Проверить наличие файла
+# Check if the file exists
 docker exec sqltemp ls -l "$BACKUP_FILE" || {
     echo "Error: Backup file not found in container"
     exit 1
 }
 
-# Получить логические имена файлов
+# Get logical file names from backup
 echo "Getting logical file names from backup..."
 docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
     -U $SQL_USER -P $SQL_PASSWORD -C \
     -Q "RESTORE FILELISTONLY FROM DISK = '$BACKUP_FILE'"
 
-# Восстановить БД
+# Restore the database
 echo "Restoring database..."
 docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
     -U $SQL_USER -P $SQL_PASSWORD -C \
@@ -36,7 +36,7 @@ docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
         MOVE 'vPICList_Lite1_log' TO '/var/opt/mssql/data/vpic_log.ldf',
         REPLACE"
 
-# Проверить восстановление
+# Verify database restoration
 echo "Verifying database restoration..."
 docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
     -U $SQL_USER -P $SQL_PASSWORD -C \
@@ -45,7 +45,7 @@ docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
         FROM sys.databases 
         WHERE name = 'vpic'"
 
-# Получить информацию о таблицах
+# Get database information
 echo "Getting database information..."
 docker exec sqltemp /opt/mssql-tools18/bin/sqlcmd -S localhost \
     -U $SQL_USER -P $SQL_PASSWORD -C \
